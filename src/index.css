@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.admin-card {
+  @apply bg-white p-6 rounded-xl shadow-sm text-center font-medium text-[#8B1D1D] hover:shadow-md transition;
+}
