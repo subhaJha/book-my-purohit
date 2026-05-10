@@ -3,7 +3,7 @@ export const rituals = [
     id: "lakshmi",
     name: "Lakshmi Puja",
     image:
-      "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19",
+      "../../assets/purohit-hero.png",
   },
   {
     id: "saraswati",
