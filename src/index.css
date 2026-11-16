@@ -261,3 +261,37 @@ h2 { font-size: clamp(1.25rem, 3vw, 2rem); }
 .directory-form .form-grid { margin-top: 16px; }
 .form-grid .account-toggle { display: flex; align-items: center; gap: 8px; }
 .form-grid .account-toggle input { width: 18px; min-height: 18px; accent-color: var(--maroon); }
+
+.api-loader-status { pointer-events: none; }
+.api-loader {
+  position: fixed;
+  inset-inline-end: 14px;
+  inset-block-end: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: calc(100% - 28px);
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface, var(--paper, #fffdf8));
+  color: var(--brand, var(--maroon, #753229));
+  box-shadow: 0 2px 10px #29291e1a;
+  font-weight: 700;
+  font-size: .875rem;
+}
+.api-loader-spinner {
+  box-sizing: border-box;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: api-loader-spin .75s linear infinite;
+}
+@keyframes api-loader-spin { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) {
+  .api-loader-spinner { animation: none; }
+}

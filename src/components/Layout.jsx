@@ -4,6 +4,7 @@ import { languages } from "../content";
 import { useLanguage } from "../language";
 import { bookingCopy as b } from "../bookingCopy";
 import { whatsappLink } from "../contact";
+import ApiLoader from "./ApiLoader";
 
 const purohitLogin = ["পুরোহিত লগইন", "पुरोहित लॉगिन", "Purohit login"];
 const admin = ["অ্যাডমিন ড্যাশবোর্ড", "एडमिन डैशबोर्ड", "Admin Dashboard"];
@@ -36,6 +37,7 @@ export default function Layout({ children }) {
           </div>
         </div>
       </header>
+      <ApiLoader />
       <main id="content" tabIndex={-1} className="shell main-content">{children}</main>
       <footer className="site-footer">
         <div className="shell footer-inner">
