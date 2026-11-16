@@ -1,21 +1,21 @@
-import FadeImage from "./FadeImage";
 import { Link } from "react-router-dom";
+import { ritualDetails } from "../content";
+import { useLanguage } from "../language";
 
-export default function RitualCard({ ritual }) {
+export function RitualGrid() {
+  const { t } = useLanguage();
   return (
-    <Link
-      to={`/purohits?ritual=${ritual.id}`}
-      className="group block rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition"
-    >
-      <div className="h-40">
-        <FadeImage src={ritual.image} alt={ritual.name} />
-      </div>
-
-      <div className="p-4 text-center">
-        <h3 className="font-medium text-[#8B1D1D] group-hover:text-black transition">
-          {ritual.name}
-        </h3>
-      </div>
-    </Link>
+    <div className="ritual-grid">
+      {Object.entries(ritualDetails).filter(([, ritual]) => ritual.detail).map(([id, ritual]) => (
+        <Link className="ritual-card" key={id} to={`/book?ritual=${id}`}>
+          <span className={`ritual-photo ritual-photo-${id}`} aria-hidden="true" />
+          <span className="ritual-copy">
+            <strong>{t(ritual.name)}</strong>
+            <span className="muted">{t(ritual.detail)}</span>
+            <span className="card-arrow" aria-hidden="true">↗</span>
+          </span>
+        </Link>
+      ))}
+    </div>
   );
 }

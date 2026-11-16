@@ -1,16 +1,17 @@
-# React + Vite
+# Book My Purohit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bengali-first booking for home pujas in English Bazar and Old Malda. Customers can browse, request and track bookings in Bengali, Hindi or English. The React frontend uses the separate `book-my-purohit-api` FastAPI repository.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Start the FastAPI backend using the instructions in the sibling repository. It listens on port 8000 by default.
+2. Run `npm ci` and `npm run dev` here. Open the URL Vite prints.
+3. Staff sign in at `/admin` using the password configured on FastAPI.
 
-## React Compiler
+The frontend forwards `/api` to `http://127.0.0.1:8000`. Set `BOOKING_API_URL` in `.env.local` if using a different backend origin. Configure the optional WhatsApp support number before building.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Production
 
-## Expanding the ESLint configuration
+Run `npm run build` and `npm start` to serve the web app and forward API calls to FastAPI. Alternatively, serve `dist` with SPA routing and use your HTTPS reverse proxy to send `/api` directly to FastAPI. Keep tracking URLs out of access logs, and configure the SQLite volume and backups in the backend environment.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Customers receive private tracking links. Staff check purohit availability, post an itemized quote, and follow up with the family. The family accepts the quote to confirm. The dashboard is in English. Staff write samagri instructions in the customer's selected language.
