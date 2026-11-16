@@ -34,7 +34,7 @@ function oval(ctx, x, y, rx, ry, fill, stroke, width = 2.8) {
 function drawFace(ctx, phase, seconds) {
   ctx.save();
   ctx.translate(164, 118);
-  ctx.rotate(Math.sin(phase - .7) * .045);
+  ctx.rotate(Math.sin(phase - .7) * .085);
   ctx.translate(-164, -118);
 
   shape(ctx, "M145 119 L145 143 Q158 155 182 142 L181 117Z", skin);
@@ -62,9 +62,19 @@ function drawFace(ctx, phase, seconds) {
 }
 
 function drawAarti(ctx, phase) {
-  const x = 70 + Math.sin(phase) * 12;
-  const y = 159 + Math.cos(phase) * 9;
-  const elbow = 113 + Math.sin(phase) * 4;
+  const x = 70 + Math.sin(phase) * 20;
+  const y = 154 + Math.cos(phase) * 15;
+  const elbow = 113 + Math.sin(phase) * 7;
+
+  for (const offset of [0, .5]) {
+    const rise = (phase / Math.PI + offset) % 1;
+    const drift = Math.sin(rise * Math.PI * 2 + phase) * (3 + rise * 8);
+    const tip = y - 41 - rise * 29;
+    ctx.save();
+    ctx.globalAlpha = Math.sin(rise * Math.PI) * .6;
+    shape(ctx, `M${x - 3 + drift} ${tip + 9} q-7 -5 -1 -8 t-1 -8`, null, "#b77a54", 1.65);
+    ctx.restore();
+  }
 
   const arm = `M147 151 Q133 149 124 175 Q${elbow} 197 105 186 Q89 173 ${x + 7} ${y + 7}`;
   shape(ctx, arm, null, ink, 20);
@@ -72,7 +82,7 @@ function drawAarti(ctx, phase) {
 
   ctx.save();
   ctx.translate(x, y);
-  ctx.rotate(Math.sin(phase + .5) * .11);
+  ctx.rotate(Math.sin(phase + .5) * .17);
   shape(ctx, "M-5 -10 L-3 9 L-10 12 L5 12 L1 9 L2 -10Z", gold, ink, 2);
   shape(ctx, "M-17 -16 Q-12 -7 -2 -7 Q8 -7 13 -16Z", gold, ink, 2.2);
   oval(ctx, -2, -16, 15, 3.7, "#ffd988", ink, 1.8);
@@ -87,7 +97,7 @@ function drawAarti(ctx, phase) {
 }
 
 function drawPurohit(ctx, seconds) {
-  const phase = seconds * Math.PI * 2 / 3.8;
+  const phase = seconds * Math.PI * 2 / 2.35;
   ctx.setTransform(2, 0, 0, 2, 0, 0);
   ctx.clearRect(0, 0, 300, 278);
   ctx.lineJoin = "round";
