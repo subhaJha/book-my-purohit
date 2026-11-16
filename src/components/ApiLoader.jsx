@@ -2,6 +2,7 @@ import { useId, useLayoutEffect, useRef, useSyncExternalStore } from "react";
 import { hasPendingApiRequests, subscribeToApiRequests } from "../bookingApi";
 import { bookingCopy } from "../bookingCopy";
 import { useLanguage } from "../language";
+import PurohitAnimation from "./PurohitAnimation";
 
 export default function ApiLoader() {
   const pending = useSyncExternalStore(subscribeToApiRequests, hasPendingApiRequests);
@@ -20,16 +21,7 @@ export default function ApiLoader() {
     <dialog ref={dialog} className="api-loader" aria-labelledby={title} aria-describedby={message}
       onCancel={(event) => event.preventDefault()}>
       <div className="api-loader-content">
-        <div className="loader-diya" aria-hidden="true">
-          <span className="loader-diya-flame" />
-          <span className="loader-diya-spark loader-diya-spark-left">✦</span>
-          <span className="loader-diya-spark loader-diya-spark-right">✧</span>
-          <span className="loader-diya-bowl">
-            <span className="loader-diya-face" />
-            <span className="loader-diya-smile" />
-          </span>
-          <span className="loader-diya-shadow" />
-        </div>
+        {pending && <PurohitAnimation />}
         <p id={title} className="api-loader-brand">{t("brand")}</p>
         <p id={message} className="api-loader-message" role="status">{t(bookingCopy.loading)}</p>
         <span className="api-loader-dots" aria-hidden="true"><i /><i /><i /></span>
