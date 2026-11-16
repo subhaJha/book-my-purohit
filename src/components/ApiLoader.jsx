@@ -14,32 +14,9 @@ export default function ApiLoader() {
   const message = useId();
 
   useEffect(() => {
-    let pageReady = document.readyState === "complete";
-    let introReady = false;
-    const motionReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    function releaseWhenReady() {
-      if (pageReady && introReady) setStarting(false);
-    }
-
-    function onPageLoad() {
-      pageReady = true;
-      releaseWhenReady();
-    }
-
-    window.addEventListener("load", onPageLoad, { once: true });
-    const intro = window.setTimeout(() => {
-      introReady = true;
-      releaseWhenReady();
-    }, motionReduced ? 0 : 850);
-    // Slow nonessential assets should never prevent visitors from using the app.
-    const deadline = window.setTimeout(() => setStarting(false), 4000);
-
-    return () => {
-      window.removeEventListener("load", onPageLoad);
-      window.clearTimeout(intro);
-      window.clearTimeout(deadline);
-    };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const intro = window.setTimeout(() => setStarting(false), reducedMotion ? 0 : 250);
+    return () => window.clearTimeout(intro);
   }, []);
 
   useLayoutEffect(() => {
